@@ -11,11 +11,11 @@ import logging
 
 from ..items import ProjectspiderItem
 
-logger = logging.getLogger('googlespiderlogger')
+logger = logging.getLogger('bingspiderlogger')
 
 
-class GoogleSpider(scrapy.Spider):
-    name = "googlespider"
+class BingSpider(scrapy.Spider):
+    name = "bingspider"
     start_urls = []
 
     def __init__(self, *args, **kwargs):
@@ -24,19 +24,20 @@ class GoogleSpider(scrapy.Spider):
             self.start_urls = urls.split(',')
         # self.logger.info(self.start_urls)
         # QuotesSpider.rules=(Rule(LxmlLinkExtractor(allow=(),unique=True), callback='parse_obj', follow=True),)
-        super(GoogleSpider, self).__init__(*args, **kwargs)
+        super(BingSpider, self).__init__(*args, **kwargs)
         logger.info("Successfully passed the url!")
 
     def parse(self, response):
-        items = ProjectspiderItem()
-        tags = response.css('div.g')
         self.logger.info('Parse function called on %s', response.url)
+        items = ProjectspiderItem()
+        tags = response.css('div.b_content')
+
 
         for i in tags:
             # title = response.xpath('span.S3Uucc').getall(),
-            title = response.xpath('//span[@class="S3Uucc"]/text()').getall(),
-            desc = response.xpath('//span[@class="st"]/text()').getall(),
-            url = response.xpath('//span[@class="bc"]/href').getall(),
+            title = response.xpath('//span[@class="h2"]/text()').getall(),
+            desc = response.xpath('//span[@class="p"]/text()').getall(),
+            url = response.xpath('//span[@class="cite"]/href').getall(),
             logger.info("Successfully captured the page elements")
 
             items['title'] = title,
@@ -45,7 +46,7 @@ class GoogleSpider(scrapy.Spider):
 
         yield items
         logger.info("Successfully sent data to item containers.")
-        next_page = response.css('a.pn ::attr(href)').get()
+        next_page = response.css('a.sb_bp :: attr(href)').get()
         if next_page is not None:
             yield response.follow(next_page, callback=self.parse)
             logger.info("Successfully going to next page")

@@ -11,11 +11,11 @@ import logging
 
 from ..items import ProjectspiderItem
 
-logger = logging.getLogger('googlespiderlogger')
+logger = logging.getLogger('linkedinspiderlogger')
 
 
-class GoogleSpider(scrapy.Spider):
-    name = "googlespider"
+class LinkedinSpider(scrapy.Spider):
+    name = "linkedinspider"
     start_urls = []
 
     def __init__(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class GoogleSpider(scrapy.Spider):
             self.start_urls = urls.split(',')
         # self.logger.info(self.start_urls)
         # QuotesSpider.rules=(Rule(LxmlLinkExtractor(allow=(),unique=True), callback='parse_obj', follow=True),)
-        super(GoogleSpider, self).__init__(*args, **kwargs)
+        super(LinkedinSpider, self).__init__(*args, **kwargs)
         logger.info("Successfully passed the url!")
 
     def parse(self, response):
