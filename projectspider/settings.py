@@ -23,8 +23,10 @@ NEWSPIDER_MODULE = 'projectspider.spiders'
 # ROBOTSTXT_OBEY = True
 
 # Updated because of project
+#Turn value to False if running using user agents
 ROBOTSTXT_OBEY = False
 
+#Enable it only if using proxies
 PROXY_POOL_ENABLED = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -56,6 +58,7 @@ PROXY_POOL_ENABLED = True
 #    'projectspider.middlewares.ProjectspiderSpiderMiddleware': 543,
 # }
 
+#Turn it on or uncomment , if running with useragents
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
@@ -67,6 +70,13 @@ DOWNLOADER_MIDDLEWARES = {
 #    'projectspider.middlewares.ProjectspiderDownloaderMiddleware': 543,
 # }
 
+#DOWNLOADER_MIDDLEWARES = {
+    # ...
+#    'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 610,
+#    'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 620,
+    # ...
+#}
+
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 # EXTENSIONS = {
@@ -75,6 +85,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
+#Enable it to use items pipelines to persist data to db
 # ITEM_PIPELINES = {
 #    'projectspider.pipelines.ProjectspiderPipeline': 300,
 # }
