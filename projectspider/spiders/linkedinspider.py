@@ -34,7 +34,7 @@ class LinkedinSpider(scrapy.Spider):
 
         for i in tags:
             # title = response.xpath('span.S3Uucc').getall(),
-            title = response.xpath('//span[@class="S3Uucc"]/text()').getall(),
+            title = response.xpath('//span[@class="LC20lb"]/text()').getall(),
             desc = response.xpath('//span[@class="st"]/text()').getall(),
             url = response.xpath('//span[@class="bc"]/href').getall(),
             logger.info("Successfully captured the page elements")
